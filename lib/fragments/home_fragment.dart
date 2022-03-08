@@ -216,6 +216,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
   }
 
+  // Todo Speaking Function
   void speak(String text) async {
     print('speaking');
     FlutterTts flutterTts = FlutterTts();

@@ -42,7 +42,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String selectedCountryCode = '+1';
   bool _loading = false;
   String staticphoneNumber = '10000000000';
-  late String dob;
   @override
   void initState() {
     setFocusListeners();
@@ -343,7 +342,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onPressed: () {
                     if (_phoneController.text.isEmpty) {
                       if (validData()) {
-                        dob= _dobController.toString();
                         // Register User WithOut OTP
                         registerUserWithOutOTP();
 
@@ -487,13 +485,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _loading = true;
     });
     try {
-      Map results = await NetworkHelper().registerUserWithOUtPhone(
+      Map results = await NetworkHelper().registerUser(
         _nameController.text.trim(),
         _emailController.text.trim(),
         staticphoneNumber,
         _passwordController.text.trim(),
         _selectedCredibility,
-        dob,
+        _selectedDate.toString(),
       );
       if (!results['error']) {
         UserModel user = results['user'];

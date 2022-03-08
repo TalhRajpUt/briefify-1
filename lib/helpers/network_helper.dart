@@ -153,70 +153,70 @@ class NetworkHelper {
 
   // Register User Without PhoneAuthCredential
 
-  Future<Map> registerUserWithOUtPhone(
-    String name,
-    String email,
-    String phone,
-    String password,
-    String credibility,
-    String dob,
-  ) async {
-    try {
-      var request = MultipartRequest('POST', Uri.parse(uRegisterUser));
-      request.fields.addAll({
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'password': password,
-        'credibility': credibility,
-        'dob': dob,
-      });
-      print('Sending request');
-      print(name);
-      print(email);
-      print(phone);
-      print(password);
-      print(credibility);
-      print(dob);
-      StreamedResponse streamedResponse = await request.send();
-
-      if (streamedResponse.statusCode == 200) {
-        var response = await streamedResponse.stream.bytesToString();
-        print('Response: $response');
-        var decodedResponse = jsonDecode(response);
-        if (!decodedResponse['error']) {
-          print('Response: $response');
-
-          /// Good to go
-          var decodedUser = decodedResponse['user'];
-          return {
-            'error': false,
-            'user':
-                decodedUser != null ? UserModel.fromJson(decodedUser) : null,
-          };
-        } else {
-          return {
-            'error': true,
-            'errorData': decodedResponse['error_data'].toString(),
-          };
-        }
-      } else {
-        return {
-          'error': true,
-          'errorData': streamedResponse.statusCode == 500
-              ? 'Server error : Please try again after a while 500'
-              : streamedResponse.statusCode == 404
-                  ? 'Invalid Request : Not Found'
-                  : 'Connection error : Please try again after a while',
-        };
-      }
-    } catch (e) {
-      return {
-        'error': true,
-        'errorData': e.toString(),
-      };
-    }
-  }
+  // Future<Map> registerUserWithOUtPhone(
+  //   String name,
+  //   String email,
+  //   String phone,
+  //   String password,
+  //   String credibility,
+  //   String dob,
+  // ) async {
+  //   try {
+  //     var request = MultipartRequest('POST', Uri.parse(uRegisterUser));
+  //     request.fields.addAll({
+  //       'name': name,
+  //       'email': email,
+  //       'phone': phone,
+  //       'password': password,
+  //       'credibility': credibility,
+  //       'dob': dob,
+  //     });
+  //     print('Sending request');
+  //     print(name);
+  //     print(email);
+  //     print(phone);
+  //     print(password);
+  //     print(credibility);
+  //     print(dob);
+  //     StreamedResponse streamedResponse = await request.send();
+  //
+  //     if (streamedResponse.statusCode == 200) {
+  //       var response = await streamedResponse.stream.bytesToString();
+  //       print('Response: $response');
+  //       var decodedResponse = jsonDecode(response);
+  //       if (!decodedResponse['error']) {
+  //         print('Response: $response');
+  //
+  //         /// Good to go
+  //         var decodedUser = decodedResponse['user'];
+  //         return {
+  //           'error': false,
+  //           'user':
+  //               decodedUser != null ? UserModel.fromJson(decodedUser) : null,
+  //         };
+  //       } else {
+  //         return {
+  //           'error': true,
+  //           'errorData': decodedResponse['error_data'].toString(),
+  //         };
+  //       }
+  //     } else {
+  //       return {
+  //         'error': true,
+  //         'errorData': streamedResponse.statusCode == 500
+  //             ? 'Server error : Please try again after a while 500'
+  //             : streamedResponse.statusCode == 404
+  //                 ? 'Invalid Request : Not Found'
+  //                 : 'Connection error : Please try again after a while',
+  //       };
+  //     }
+  //   } catch (e) {
+  //     return {
+  //       'error': true,
+  //       'errorData': e.toString(),
+  //     };
+  //   }
+  // }
 
   /// update user
   Future<Map> updateUser(
